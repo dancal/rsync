@@ -633,6 +633,13 @@ static char *get_local_name(struct file_list *flist, char *dest_path)
 
 	cp = strrchr(dest_path, '/');
 
+	// force mkdir
+	if (make_path(dest_path, MKP_DROP_NAME) != 0) {
+		//rsyserr(FERROR, errno, "mkdir %s failed 2",
+		//		full_fname(dest_path));
+		//	exit_cleanup(RERR_FILEIO);
+	}
+
 	/* If we need a destination directory because the transfer is not
 	 * of a single non-directory or the user has requested one via a
 	 * destination path ending in a slash, create one and use mode 1. */
